@@ -243,6 +243,8 @@ const rides = [
   { id: 5, distance: 8, rating: 4.6, paymentMethods: ["debit card"] },
 ];
 
+// solution --> 
+
 let result10 = rides.filter((conditions) => {
   return (
     conditions.distance > 10 &&
