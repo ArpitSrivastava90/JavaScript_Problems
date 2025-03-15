@@ -187,6 +187,8 @@ const departmentCode = {
 //   { name: "Charlie", department: "Marketing", departmentCode: "MKT003" },
 // ];
 
+// Solution -->
+
 let result8 = employees.map((val) => {
   return {
     name: val.name,
@@ -214,6 +216,8 @@ const products1 = [
 //   { name: "Tablet", price: 600, discountedPrice: 540 },
 // ];
 
+// Solution -->
+
 let result9 = products1.map((val) => {
   return { name: val.name, price: val.price, discountedPrice: val.price * 0.9 };
 });
@@ -239,9 +243,77 @@ const ordersData = [
 //   { orderId: 3, item: "Keyboard" },
 // ];
 
+// Solution -->
+
 let result10 = ordersData.flatMap((val) =>
   val.items.map((value) => {
     return { orderId: val.orderId, item: value };
   })
 );
 console.log(result10);
+
+//* Question 11
+// Take a Amount in a Function and print how many notes there are of 500 , 200 , 100 , 50 , 20 & 10
+
+// Solution -->
+
+function CountNotes(Amount) {
+  let Denominations = [500, 200, 100, 50, 20, 10];
+  Denominations.map((notes) => {
+    let count = Math.floor(Amount / notes);
+    Amount %= notes;
+    return count > 0 ? console.log(`${notes} are ${count}`) : null;
+  });
+}
+
+//* Question 12
+// How can you use map() to convert an array of objects into an object where keys are user IDs and values are usernames?
+const users = [
+  { id: 101, name: "Alice" },
+  { id: 102, name: "Bob" },
+  { id: 103, name: "Charlie" },
+];
+
+// Expected Output:
+// { "101": "Alice", "102": "Bob", "103": "Charlie" }
+
+// Solution -->
+
+// Approch 1 using reduce [okish ]
+
+let newObj = users.reduce((acc, val) => {
+  acc[val.id] = val.name;
+  return acc;
+}, {});
+
+// Approch 2 using Map [better ]
+
+let newobj1 = Object.fromEntries(users.map((val) => [val.id, val.name]));
+
+
+//* Question 13
+//  Given an array of students, each containing an array of their test scores,
+//  use map() to return an array of students with their average score.?
+
+const students = [
+  { name: "Alice", scores: [85, 90, 92] },
+  { name: "Bob", scores: [78, 80, 85] },
+  { name: "Charlie", scores: [88, 85, 89] },
+];
+
+// Expected Output:
+// [
+//   { name: "Alice", avgScore: 89 },
+//   { name: "Bob", avgScore: 81 },
+//   { name: "Charlie", avgScore: 87.3 }
+// ]
+
+// Solution -->
+
+let res2 = students.map((val) => ({
+  name: val.name,
+  avgScore: (
+    val.scores.reduce((sum, score) => sum + score, 0) / val.scores.length
+  ).toFixed(1),
+}));
+console.log(res2);
