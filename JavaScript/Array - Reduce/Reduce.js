@@ -203,7 +203,7 @@ const result9 = items.reduce((acc, val) => {
 }, {});
 
 
-// question  10 
+// *question  10 
 // Given an array, find the most frequently occurring element using reduce().
 
 

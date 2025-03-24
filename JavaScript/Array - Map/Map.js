@@ -290,6 +290,10 @@ let newObj = users.reduce((acc, val) => {
 
 let newobj1 = Object.fromEntries(users.map((val) => [val.id, val.name]));
 
+// Object.fromEntries(...)
+
+// Converts the array of key-value pairs into an object.
+
 
 //* Question 13
 //  Given an array of students, each containing an array of their test scores,
