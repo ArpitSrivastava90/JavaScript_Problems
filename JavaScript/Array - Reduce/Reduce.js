@@ -202,24 +202,110 @@ const result9 = items.reduce((acc, val) => {
   return acc;
 }, {});
 
-
-// *question  10 
+// *question  10
 // Given an array, find the most frequently occurring element using reduce().
-
 
 const arr = [3, 7, 3, 2, 7, 7, 1, 3, 3, 7, 2];
 
-
 // Solution -->
-const mostFrequent = arr.reduce((acc, val) => {
-  acc.counts[val] = (acc.counts[val] || 0) + 1; // Count occurrences
+const mostFrequent = arr.reduce(
+  (acc, val) => {
+    acc.counts[val] = (acc.counts[val] || 0) + 1; // Count occurrences
 
-  if (acc.counts[val] > acc.count) {
-    acc.count = acc.counts[val]; // Update max count
-    acc.element = val; // Update most frequent element
+    if (acc.counts[val] > acc.count) {
+      acc.count = acc.counts[val]; // Update max count
+      acc.element = val; // Update most frequent element
+    }
+
+    return acc;
+  },
+  { counts: {}, count: 0, element: null }
+).element;
+
+console.log(mostFrequent);
+
+// -----> Advance level
+
+//* Question 11
+
+const orders1 = [
+  {
+    id: 1,
+    customer: "Alice",
+    items: [{ product: "apple", quantity: 2, price: 3 }],
+  },
+  {
+    id: 2,
+    customer: "Bob",
+    items: [
+      { product: "banana", quantity: 1, price: 2 },
+      { product: "apple", quantity: 1, price: 3 },
+    ],
+  },
+  {
+    id: 3,
+    customer: "Alice",
+    items: [{ product: "orange", quantity: 3, price: 1 }],
+  },
+];
+
+// Output
+
+// {
+//   Alice: {
+//     totalSpent: 9,       // (2*3 + 3*1)
+//     orders: [1, 3]
+//   },
+//   Bob: {
+//     totalSpent: 5,       // (1*2 + 1*3)
+//     orders: [2]
+//   }
+// }
+
+const result11 = orders1.reduce((acc, curr) => {
+  const { id, customer, items } = curr;
+  const total = items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+
+  if (!acc[customer]) {
+    acc[customer] = {
+      totalspent: total,
+      orders: [id],
+    };
+  } else {
+    acc[customer].totalspent += total;
+    acc[customer].orders.push(id);
   }
 
   return acc;
-}, { counts: {}, count: 0, element: null }).element;
+}, {});
 
-console.log(mostFrequent);
+//* Question 12
+
+// Flatten an array of users’ tags and return a deduplicated list of all used tags.
+const users1 = [
+  { id: 1, tags: ["js", "react"] },
+  { id: 2, tags: ["node", "express", "js"] },
+  { id: 3, tags: ["react", "node"] },
+];
+
+// expected output
+// ["js", "react", "node", "express"]
+
+// const result12 = users1.reduce((acc, curr) => {
+//   acc.push(...curr.tags);
+//   return acc.filter((val, indx, arr) => arr.indexOf(val) === indx);   ---> Slow
+// }, []);
+
+const result12 = Array.from(
+  (uniqueArray = users1.reduce((acc, val) => {
+    val.tags.forEach((tag) => acc.add(tag));
+    return acc;
+  }, new Set()))
+);
+
+let res = Array.from({ length: 4 }, (_, i) => i);
+
+
