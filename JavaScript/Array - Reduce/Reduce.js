@@ -342,23 +342,45 @@ const orders2 = [
 
 // Solution -->
 
-// const result13 = orders2.reduce((acc, val) => {
-//   const { userId, product, price } = val;
-//   acc[userId] = acc[userId] || {};
-//   acc[userId].total = (acc[userId].total || 0) + price;
-//   acc[userId].product = acc[userId].product || [];
-//   acc[userId].product.push(product);
-//   return acc;
-// }, {});
+// [ Basic Approach ]
+
 const result13 = orders2.reduce((acc, val) => {
   const { userId, product, price } = val;
-  acc[userId] = acc[userId] || { total: 0, product: [] };
-  acc[userId].total += price;
-  acc[userId].product.push(product)
+  acc[userId] = acc[userId] || {};
+  acc[userId].total = (acc[userId].total || 0) + price;
+  acc[userId].product = acc[userId].product || [];
+  acc[userId].product.push(product);
   return acc;
 }, {});
 
-console.log(result13);
+// [ Mine  solution  ]
+
+const result14 = orders2.reduce((acc, val) => {
+  const { userId, product, price } = val;
+  acc[userId] = acc[userId] || { total: 0, product: [] };
+  acc[userId].total += price;
+  acc[userId].product.push(product);
+  return acc;
+}, {});
+
+// [ This is how to has to be ]
+
+
+const sln = orders2.reduce((acc, val) => {
+  const { userId, product, price } = val;
+  if (!acc[userId]) {
+    acc[userId] = {
+      total: 0,
+      product: [],
+    };
+  }
+  acc[userId].total += price;
+  acc[userId].product.push(product);
+
+  return acc;
+}, {});
+
+
 
 // For test purpose
 let res = Array.from({ length: 4 }, (_, i) => i);
