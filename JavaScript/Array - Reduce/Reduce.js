@@ -262,6 +262,8 @@ const orders1 = [
 //   }
 // }
 
+// Solution -->
+
 const result11 = orders1.reduce((acc, curr) => {
   const { id, customer, items } = curr;
   const total = items.reduce(
@@ -294,6 +296,8 @@ const users1 = [
 // expected output
 // ["js", "react", "node", "express"]
 
+// Solution -->
+
 // const result12 = users1.reduce((acc, curr) => {
 //   acc.push(...curr.tags);
 //   return acc.filter((val, indx, arr) => arr.indexOf(val) === indx);   ---> Slow
@@ -306,6 +310,55 @@ const result12 = Array.from(
   }, new Set()))
 );
 
+//* Question 13
+// You’re given an array of orders. Each order contains a user ID, product, and price.
+// Your task is to use reduce to group all orders by user ID and calculate the total spending per user,
+// including a list of products they purchased.
+
+const orders2 = [
+  { userId: "u1", product: "iPhone", price: 999 },
+  { userId: "u2", product: "MacBook", price: 1999 },
+  { userId: "u1", product: "AirPods", price: 199 },
+  { userId: "u3", product: "iPad", price: 499 },
+  { userId: "u2", product: "Apple Watch", price: 399 },
+];
+
+// Expected Output
+
+// {
+//   u1: {
+//     total: 1198,
+//     products: ['iPhone', 'AirPods']
+//   },
+//   u2: {
+//     total: 2398,
+//     products: ['MacBook', 'Apple Watch']
+//   },
+//   u3: {
+//     total: 499,
+//     products: ['iPad']
+//   }
+// }
+
+// Solution -->
+
+// const result13 = orders2.reduce((acc, val) => {
+//   const { userId, product, price } = val;
+//   acc[userId] = acc[userId] || {};
+//   acc[userId].total = (acc[userId].total || 0) + price;
+//   acc[userId].product = acc[userId].product || [];
+//   acc[userId].product.push(product);
+//   return acc;
+// }, {});
+const result13 = orders2.reduce((acc, val) => {
+  const { userId, product, price } = val;
+  acc[userId] = acc[userId] || { total: 0, product: [] };
+  acc[userId].total += price;
+  acc[userId].product.push(product)
+  return acc;
+}, {});
+
+console.log(result13);
+
+// For test purpose
 let res = Array.from({ length: 4 }, (_, i) => i);
-
-
